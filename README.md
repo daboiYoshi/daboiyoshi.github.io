@@ -1,2 +1,2 @@
-This is where the files of the website `https://docs.daboiyoshi.com/`.
+This is where the files of the website `https://www.daboiyoshi.com/` are found.
 If there is a problem, contact `info@daboiyoshi.com`
