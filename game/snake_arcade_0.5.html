@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimalist Snake - Hard Mode</title>
+    <style>
+        body {
+            background-color: #000;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            touch-action: none;
+        }
+
+        #gameCanvas {
+            background-color: #000;
+            display: block;
+        }
+
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.8);
+            color: #888;
+            font-family: sans-serif;
+            cursor: pointer;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <canvas id="gameCanvas"></canvas>
+    
+    <div id="overlay">
+        <h1>CLICK TO START<br><small style="font-size: 0.5em;">DON'T HIT THE WALLS</small></h1>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const overlay = document.getElementById('overlay');
+
+        const gridSize = 20;
+        let tileCountX, tileCountY;
+        
+        let snake = [];
+        let food = { x: 5, y: 5 };
+        let dx = 1;
+        let dy = 0;
+        let nextDx = 1;
+        let nextDy = 0;
+        let lastTimestamp = 0;
+        const speed = 100;
+        let isRunning = false;
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            tileCountX = Math.floor(canvas.width / gridSize);
+            tileCountY = Math.floor(canvas.height / gridSize);
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        function initGame() {
+            snake = [
+                { x: 10, y: 10 },
+                { x: 9, y: 10 },
+                { x: 8, y: 10 }
+            ];
+            dx = 1;
+            dy = 0;
+            nextDx = 1;
+            nextDy = 0;
+            placeFood();
+            overlay.classList.add('hidden');
+            isRunning = true;
+            requestAnimationFrame(main);
+        }
+
+        function placeFood() {
+            food = {
+                x: Math.floor(Math.random() * tileCountX),
+                y: Math.floor(Math.random() * tileCountY)
+            };
+        }
+
+        function handleInput(key) {
+            switch(key) {
+                case 'ArrowUp': case 'w': if (dy !== 1) { nextDx = 0; nextDy = -1; } break;
+                case 'ArrowDown': case 's': if (dy !== -1) { nextDx = 0; nextDy = 1; } break;
+                case 'ArrowLeft': case 'a': if (dx !== 1) { nextDx = -1; nextDy = 0; } break;
+                case 'ArrowRight': case 'd': if (dx !== -1) { nextDx = 1; nextDy = 0; } break;
+            }
+        }
+
+        window.addEventListener('keydown', e => handleInput(e.key));
+        overlay.addEventListener('click', initGame);
+
+        function main(timestamp) {
+            if (!isRunning) return;
+            
+            const elapsed = timestamp - lastTimestamp;
+            if (elapsed > speed) {
+                lastTimestamp = timestamp;
+                update();
+            }
+            draw();
+            requestAnimationFrame(main);
+        }
+
+        function update() {
+            dx = nextDx;
+            dy = nextDy;
+
+            const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+
+            // NEW: Wall Collision (Death)
+            if (head.x < 0 || head.x >= tileCountX || head.y < 0 || head.y >= tileCountY) {
+                gameOver();
+                return;
+            }
+
+            // Self Collision
+            for (let i = 0; i < snake.length; i++) {
+                if (snake[i].x === head.x && snake[i].y === head.y) {
+                    gameOver();
+                    return;
+                }
+            }
+
+            snake.unshift(head);
+
+            // Eat Food
+            if (head.x === food.x && head.y === food.y) {
+                placeFood();
+            } else {
+                snake.pop();
+            }
+        }
+
+        function gameOver() {
+            isRunning = false;
+            overlay.innerHTML = "<h1>GAME OVER</h1><p>CLICK TO TRY AGAIN</p>";
+            overlay.classList.remove('hidden');
+        }
+
+        function draw() {
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Food
+            ctx.fillStyle = '#888';
+            ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize, gridSize);
+
+            // Snake
+            ctx.fillStyle = '#888';
+            snake.forEach(part => {
+                ctx.fillRect(part.x * gridSize, part.y * gridSize, gridSize, gridSize);
+            });
+        }
+    </script>
+</body>
+</html>
