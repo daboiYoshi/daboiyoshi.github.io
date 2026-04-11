@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DVD Bouncing Logo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        #dvd-logo {
+            position: absolute;
+            width: 200px; 
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="logo.png" id="dvd-logo" alt="DVD Logo">
+
+    <script>
+        const logo = document.getElementById('dvd-logo');
+        
+        // Starting coordinates
+        let x = 1;
+        let y = 1;
+        
+        // Standardized speeds to maintain the classic path
+        // To make corner hits rarer (like the real one), use 
+        // numbers that don't divide evenly into your screen resolution.
+        let speedX = 2; 
+        let speedY = 2; 
+
+        function animate() {
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+            const logoWidth = logo.clientWidth;
+            const logoHeight = logo.clientHeight;
+
+            x += speedX;
+            y += speedY;
+
+            // Horizontal hit
+            if (x + logoWidth >= screenWidth || x <= 0) {
+                speedX *= -1;
+                // Force position to edge to prevent "glitching" through walls
+                x = x <= 0 ? 0 : screenWidth - logoWidth;
+            }
+
+            // Vertical hit
+            if (y + logoHeight >= screenHeight || y <= 0) {
+                speedY *= -1;
+                y = y <= 0 ? 0 : screenHeight - logoHeight;
+            }
+
+            logo.style.left = x + 'px';
+            logo.style.top = y + 'px';
+
+            requestAnimationFrame(animate);
+        }
+
+        logo.onload = animate;
+        if (logo.complete) animate();
+
+        window.addEventListener('resize', () => {
+            // Recalculate to prevent logo getting stuck outside window
+            x = Math.min(x, window.innerWidth - logo.clientWidth);
+            y = Math.min(y, window.innerHeight - logo.clientHeight);
+        });
+    </script>
+</body>
+</html>
