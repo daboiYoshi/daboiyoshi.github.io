@@ -1,0 +1,67 @@
+{
+  "upgrades": [
+    {
+      "id": "hull_plating",
+      "name": "Hull Plating",
+      "description": "Increase max health by 25",
+      "cost": 500,
+      "maxLevel": 5,
+      "effect": { "stat": "health", "value": 25 },
+      "icon": "🛡️"
+    },
+    {
+      "id": "shield_capacitor",
+      "name": "Shield Capacitor",
+      "description": "Increase max shields by 20",
+      "cost": 600,
+      "maxLevel": 5,
+      "effect": { "stat": "shields", "value": 20 },
+      "icon": "⚡"
+    },
+    {
+      "id": "engine_boost",
+      "name": "Engine Boost",
+      "description": "Increase speed by 30",
+      "cost": 400,
+      "maxLevel": 4,
+      "effect": { "stat": "speed", "value": 30 },
+      "icon": "🚀"
+    },
+    {
+      "id": "cannon_overcharge",
+      "name": "Cannon Overcharge",
+      "description": "Increase laser damage by 5",
+      "cost": 700,
+      "maxLevel": 5,
+      "effect": { "stat": "laserDamage", "value": 5 },
+      "icon": "🔫"
+    },
+    {
+      "id": "energy_cell",
+      "name": "Energy Cell",
+      "description": "Increase max energy by 20",
+      "cost": 350,
+      "maxLevel": 5,
+      "effect": { "stat": "energy", "value": 20 },
+      "icon": "🔋"
+    },
+    {
+      "id": "shield_regen",
+      "name": "Shield Regen Module",
+      "description": "Increase shield regen rate by 1/s",
+      "cost": 800,
+      "maxLevel": 3,
+      "effect": { "stat": "shieldRegen", "value": 1 },
+      "icon": "♻️"
+    }
+  ],
+  "achievements": [
+    { "id": "first_kill", "name": "First Blood", "description": "Destroy your first enemy", "condition": { "type": "kills", "value": 1 }, "reward": 100 },
+    { "id": "ace", "name": "Space Ace", "description": "Destroy 50 enemies", "condition": { "type": "kills", "value": 50 }, "reward": 500 },
+    { "id": "wave5", "name": "Halfway There", "description": "Complete Wave 5", "condition": { "type": "wave", "value": 5 }, "reward": 750 },
+    { "id": "wave10", "name": "Void Breacher", "description": "Complete all 10 waves", "condition": { "type": "wave", "value": 10 }, "reward": 2000 },
+    { "id": "score10k", "name": "High Scorer", "description": "Reach 10,000 points", "condition": { "type": "score", "value": 10000 }, "reward": 1000 },
+    { "id": "no_damage", "name": "Untouchable", "description": "Complete a wave without taking damage", "condition": { "type": "noDamage", "value": 1 }, "reward": 600 },
+    { "id": "capital_killer", "name": "Capital Punishment", "description": "Destroy a Capital Ship", "condition": { "type": "capitalKill", "value": 1 }, "reward": 800 }
+  ]
+}

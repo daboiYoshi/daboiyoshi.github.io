@@ -1,0 +1,119 @@
+{
+  "game": {
+    "title": "VOID BREACH",
+    "version": "1.0.0",
+    "width": 1280,
+    "height": 720,
+    "targetFPS": 60
+  },
+  "player": {
+    "speed": 280,
+    "rollSpeed": 3.5,
+    "pitchSpeed": 2.8,
+    "health": 100,
+    "shields": 50,
+    "shieldRegenRate": 2,
+    "shieldRegenDelay": 3000,
+    "lives": 3,
+    "invincibilityDuration": 2000
+  },
+  "weapons": {
+    "laser": {
+      "name": "Plasma Cannon",
+      "damage": 10,
+      "speed": 1200,
+      "fireRate": 120,
+      "color": "#00ffff",
+      "energyCost": 5
+    },
+    "missile": {
+      "name": "Seeker Missile",
+      "damage": 45,
+      "speed": 600,
+      "fireRate": 800,
+      "color": "#ff6600",
+      "energyCost": 20,
+      "homingStrength": 3.5
+    },
+    "spread": {
+      "name": "Scatter Burst",
+      "damage": 8,
+      "speed": 900,
+      "fireRate": 350,
+      "color": "#ff00ff",
+      "energyCost": 12,
+      "pellets": 5,
+      "spreadAngle": 0.25
+    }
+  },
+  "enemies": {
+    "fighter": {
+      "health": 30,
+      "speed": 180,
+      "score": 100,
+      "fireRate": 1800,
+      "damage": 10,
+      "color": "#ff4444",
+      "scale": 1.0
+    },
+    "bomber": {
+      "health": 80,
+      "speed": 100,
+      "score": 250,
+      "fireRate": 2500,
+      "damage": 25,
+      "color": "#ff8800",
+      "scale": 1.8
+    },
+    "scout": {
+      "health": 15,
+      "speed": 320,
+      "score": 75,
+      "fireRate": 2200,
+      "damage": 8,
+      "color": "#ffff00",
+      "scale": 0.7
+    },
+    "capital": {
+      "health": 500,
+      "speed": 40,
+      "score": 1000,
+      "fireRate": 1000,
+      "damage": 35,
+      "color": "#aa00ff",
+      "scale": 3.5
+    }
+  },
+  "powerups": {
+    "health": { "value": 30, "color": "#00ff88", "duration": 0 },
+    "shield": { "value": 50, "color": "#4488ff", "duration": 0 },
+    "energy": { "value": 60, "color": "#ffff00", "duration": 0 },
+    "rapidfire": { "value": 0, "color": "#ff00ff", "duration": 8000 },
+    "tripleshot": { "value": 0, "color": "#ff8800", "duration": 6000 },
+    "invincible": { "value": 0, "color": "#ffffff", "duration": 5000 }
+  },
+  "waves": [
+    { "wave": 1, "enemies": [{"type":"fighter","count":4}], "spawnDelay": 1200 },
+    { "wave": 2, "enemies": [{"type":"fighter","count":5},{"type":"scout","count":3}], "spawnDelay": 1000 },
+    { "wave": 3, "enemies": [{"type":"fighter","count":4},{"type":"bomber","count":2}], "spawnDelay": 1000 },
+    { "wave": 4, "enemies": [{"type":"scout","count":6},{"type":"fighter","count":3}], "spawnDelay": 900 },
+    { "wave": 5, "enemies": [{"type":"capital","count":1},{"type":"fighter","count":4}], "spawnDelay": 800 },
+    { "wave": 6, "enemies": [{"type":"bomber","count":3},{"type":"scout","count":5},{"type":"fighter","count":3}], "spawnDelay": 800 },
+    { "wave": 7, "enemies": [{"type":"capital","count":2},{"type":"fighter","count":6}], "spawnDelay": 700 },
+    { "wave": 8, "enemies": [{"type":"scout","count":8},{"type":"bomber","count":4},{"type":"capital","count":1}], "spawnDelay": 700 },
+    { "wave": 9, "enemies": [{"type":"capital","count":3},{"type":"fighter","count":8},{"type":"bomber","count":3}], "spawnDelay": 600 },
+    { "wave": 10, "enemies": [{"type":"capital","count":4},{"type":"bomber","count":5},{"type":"scout","count":8},{"type":"fighter","count":6}], "spawnDelay": 500 }
+  ],
+  "starfield": {
+    "layers": [
+      { "count": 200, "speed": 0.3, "size": 0.8, "opacity": 0.5 },
+      { "count": 120, "speed": 0.7, "size": 1.2, "opacity": 0.7 },
+      { "count": 60,  "speed": 1.4, "size": 2.0, "opacity": 0.9 }
+    ]
+  },
+  "audio": {
+    "masterVolume": 0.6,
+    "sfxVolume": 0.7,
+    "musicVolume": 0.3
+  }
+}
