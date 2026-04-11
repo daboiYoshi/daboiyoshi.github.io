@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLASH BREAKER</title>
+    <link rel="stylesheet" href="styling.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="stats">
+            <span>SCORE:<span id="score">0</span></span>
+            <span>LIVES:<span id="lives">3</span></span>
+        </div>
+        <canvas id="gameCanvas"></canvas>
+        
+        <div id="overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; border: 4px solid #fff; box-sizing: border-box;">
+            <h1 style="color: #fff; margin-bottom: 20px; font-size: 3rem; text-shadow: 4px 4px #ff00ff;">FLASH BREAKER</h1>
+            <p style="color: #00ffff; margin-bottom: 30px;">[PRESS START GAME TO START]</p>
+            <button id="start-btn" style="padding: 15px 30px; background: #fff; color: #000; font-weight: bold; cursor: pointer; border: 4px solid #00ffff; font-size: 1.2rem; font-family: 'Courier New', Courier, monospace;">START GAME</button>
+        </div>
+    </div>
+    <script src="logic.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "name": "Flash Breaker: 8-Bit",
+  "version": "1.3.0",
+  "description": "Retro brick breaker with chip-tune music and pixel aesthetics.",
+  "author": "Snake Arcade, info@daboiyoshi.com",
+  "settings": {
+    "palette": "Retro Neon",
+    "music": "Chiptune Arpeggio"
+  }
+}
