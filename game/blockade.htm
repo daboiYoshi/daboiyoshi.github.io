@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blockade Clone</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            color: #00FF41;
+            font-family: 'Courier New', Courier, monospace;
+            overflow: hidden; /* Extra insurance against scrolling */
+        }
+        canvas {
+            border: 4px solid #333;
+            background-color: #000;
+            image-rendering: pixelated;
+        }
+        .ui { margin-bottom: 10px; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <div class="ui">
+        <h1>BLOCKADE</h1>
+        <p>P1: Arrow Keys | P2: WASD</p>
+        <p id="status">Press SPACE to Start</p>
+    </div>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+<script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const statusText = document.getElementById('status');
+
+    const GRID_SIZE = 10;
+    const ROWS = canvas.height / GRID_SIZE;
+    const COLS = canvas.width / GRID_SIZE;
+
+    let gameActive = false;
+    let grid = [];
+
+    // Player Objects
+    let p1 = { x: 30, y: 20, dx: -1, dy: 0, color: '#00FF41', trail: [] };
+    let p2 = { x: 10, y: 20, dx: 1, dy: 0, color: '#00FF41', trail: [] };
+
+    function initGrid() {
+        grid = Array(ROWS).fill().map(() => Array(COLS).fill(0));
+    }
+
+    function reset() {
+        initGrid();
+        p1.x = 30; p1.y = 20; p1.dx = -1; p1.dy = 0;
+        p2.x = 10; p2.y = 20; p2.dx = 1; p2.dy = 0;
+        gameActive = true;
+        statusText.innerText = "SURVIVE!";
+    }
+
+    window.addEventListener('keydown', e => {
+        // --- PREVENT SCROLLING ---
+        if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"," "].indexOf(e.key) > -1) {
+            e.preventDefault();
+        }
+
+        // P1 Controls (Arrows)
+        if (e.key === 'ArrowUp' && p1.dy === 0) { p1.dx = 0; p1.dy = -1; }
+        if (e.key === 'ArrowDown' && p1.dy === 0) { p1.dx = 0; p1.dy = 1; }
+        if (e.key === 'ArrowLeft' && p1.dx === 0) { p1.dx = -1; p1.dy = 0; }
+        if (e.key === 'ArrowRight' && p1.dx === 0) { p1.dx = 1; p1.dy = 0; }
+
+        // P2 Controls (WASD)
+        if (e.key === 'w' && p2.dy === 0) { p2.dx = 0; p2.dy = -1; }
+        if (e.key === 's' && p2.dy === 0) { p2.dx = 0; p2.dy = 1; }
+        if (e.key === 'a' && p2.dx === 0) { p2.dx = -1; p2.dy = 0; }
+        if (e.key === 'd' && p2.dx === 0) { p2.dx = 1; p2.dy = 0; }
+
+        if (e.key === ' ' && !gameActive) reset();
+    });
+
+    function update() {
+        if (!gameActive) return;
+
+        p1.x += p1.dx; p1.y += p1.dy;
+        p2.x += p2.dx; p2.y += p2.dy;
+
+        let p1Hit = checkCollision(p1.x, p1.y);
+        let p2Hit = checkCollision(p2.x, p2.y);
+
+        if (p1Hit && p2Hit) {
+            statusText.innerText = "TIE! Press Space";
+            gameActive = false;
+        } else if (p1Hit) {
+            statusText.innerText = "PLAYER 2 WINS! Press Space";
+            gameActive = false;
+        } else if (p2Hit) {
+            statusText.innerText = "PLAYER 1 WINS! Press Space";
+            gameActive = false;
+        }
+
+        if (gameActive) {
+            grid[p1.y][p1.x] = 1;
+            grid[p2.y][p2.x] = 1;
+        }
+    }
+
+    function checkCollision(x, y) {
+        return (x < 0 || x >= COLS || y < 0 || y >= ROWS || grid[y][x] === 1);
+    }
+
+    function draw() {
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = '#00FF41';
+        for (let r = 0; r < ROWS; r++) {
+            for (let c = 0; c < COLS; c++) {
+                if (grid[r][c] === 1) {
+                    ctx.fillRect(c * GRID_SIZE, r * GRID_SIZE, GRID_SIZE - 1, GRID_SIZE - 1);
+                }
+            }
+        }
+        
+        ctx.fillStyle = '#FFF';
+        ctx.fillRect(p1.x * GRID_SIZE, p1.y * GRID_SIZE, GRID_SIZE - 1, GRID_SIZE - 1);
+        ctx.fillRect(p2.x * GRID_SIZE, p2.y * GRID_SIZE, GRID_SIZE - 1, GRID_SIZE - 1);
+    }
+
+    function gameLoop() {
+        update();
+        draw();
+        setTimeout(gameLoop, 100);
+    }
+
+    initGrid();
+    gameLoop();
+</script>
+</body>
+</html>
