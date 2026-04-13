@@ -1,105 +1,557 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>docs.daboiyoshi.com</title>
-    <style>
-        :root {
-            --bg-color: #f4f7f6;
-            --card-bg: #ffffff;
-            --text-main: #2d3436;
-            --accent-color: #0984e3;
-            --border-color: #dfe6e9;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>docs.daboiyoshi.com</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
+  :root {
+    --navy: #0d1b2e;
+    --navy-light: #122340;
+    --green: #00e676;
+    --green-dim: #00b85c;
+    --green-dark: #007a3d;
+    --text: #e8f0fe;
+    --text-muted: #8fa8c8;
+    --border: rgba(0, 230, 118, 0.2);
+    --card-bg: rgba(18, 35, 64, 0.8);
+    --font: 'Courier New', Courier, monospace;
+  }
 
-        .container {
-            width: 90%;
-            max-width: 600px;
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            border: 1px solid var(--border-color);
-            text-align: center;
-        }
+  body {
+    background-color: var(--navy);
+    color: var(--text);
+    font-family: var(--font);
+    min-height: 100vh;
+  }
 
-        h1 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--accent-color);
-        }
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(13, 27, 46, 0.95);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 2rem;
+    backdrop-filter: blur(8px);
+  }
 
-        p {
-            color: #636e72;
-            margin-bottom: 2rem;
-        }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
 
-        .file-list {
-            text-align: left;
-            border-top: 1px solid var(--border-color);
-        }
+  .nav-logo img {
+    width: 42px;
+    height: 42px;
+    image-rendering: pixelated;
+    border-radius: 6px;
+  }
 
-        .file-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            border-bottom: 1px solid var(--border-color);
-            text-decoration: none;
-            color: var(--text-main);
-            transition: background 0.2s;
-        }
+  .nav-logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
 
-        .file-item:hover {
-            background-color: #f9f9f9;
-        }
+  .nav-logo-text span:first-child {
+    font-size: 13px;
+    color: var(--green);
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
 
-        .icon {
-            margin-right: 15px;
-            font-size: 1.2rem;
-        }
+  .nav-logo-text span:last-child {
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
 
-        .footer {
-            margin-top: 2rem;
-            font-size: 0.85rem;
-        }
+  .nav-menu {
+    display: flex;
+    gap: 0.5rem;
+    list-style: none;
+  }
 
-        .footer a {
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: bold;
-        }
+  .nav-menu a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    padding: 6px 14px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: all 0.2s;
+    letter-spacing: 1px;
+  }
 
-        .footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
+  .nav-menu a:hover {
+    color: var(--green);
+    border-color: var(--border);
+    background: rgba(0,230,118,0.05);
+  }
+
+  /* ── PAGES ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── HERO ── */
+  .hero {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 5rem 2rem 3rem;
+    text-align: center;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    font-size: 11px;
+    color: var(--green);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 14px;
+    margin-bottom: 1.5rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .hero h1 span {
+    color: var(--green);
+  }
+
+  .hero p {
+    font-size: 15px;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    border-radius: 5px;
+    font-family: var(--font);
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--green);
+    color: #0d1b2e;
+    font-weight: bold;
+  }
+
+  .btn-primary:hover { background: #00ff88; transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--green);
+    border: 1px solid var(--border);
+  }
+
+  .btn-outline:hover {
+    background: rgba(0,230,118,0.07);
+    border-color: var(--green);
+  }
+
+  /* ── TERMINAL HEADER ── */
+  .terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: rgba(0,0,0,0.3);
+    border-bottom: 1px solid var(--border);
+    border-radius: 8px 8px 0 0;
+  }
+
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot.red { background: #ff5f57; }
+  .dot.yellow { background: #febc2e; }
+  .dot.green { background: #28c840; }
+
+  .terminal-title {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+  }
+
+  /* ── CARDS GRID ── */
+  .section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 2rem 4rem;
+  }
+
+  .section-label {
+    font-size: 11px;
+    color: var(--green);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::before {
+    content: '//';
+    opacity: 0.5;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .card:hover {
+    border-color: var(--green);
+    transform: translateY(-2px);
+  }
+
+  .card-body {
+    padding: 1.25rem;
+  }
+
+  .card-icon {
+    font-size: 22px;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .card h3 {
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+  }
+
+  .card p {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .card-link {
+    display: block;
+    padding: 8px 14px;
+    background: rgba(0,230,118,0.06);
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--green);
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: background 0.2s;
+  }
+
+  .card-link:hover { background: rgba(0,230,118,0.12); }
+
+  /* GAME CARD special */
+  .card.highlight {
+    border-color: rgba(0,230,118,0.5);
+    background: linear-gradient(135deg, rgba(18,35,64,0.9), rgba(0,60,30,0.4));
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0 2rem;
+    opacity: 0.5;
+  }
+
+  /* ── HELP PAGE ── */
+  .help-container {
+    max-width: 760px;
+    margin: 3rem auto;
+    padding: 0 2rem 4rem;
+  }
+
+  .help-container h2 {
+    font-size: 1.5rem;
+    color: var(--green);
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+  }
+
+  .help-container .subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+  }
+
+  .help-block {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .help-block h4 {
+    font-size: 13px;
+    color: var(--green);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .help-block p, .help-block li {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .help-block ul {
+    padding-left: 1.2rem;
+    margin-top: 6px;
+  }
+
+  .help-block a {
+    color: var(--green);
+    text-decoration: none;
+  }
+
+  .help-block a:hover { text-decoration: underline; }
+
+  /* ── CONTACT PAGE ── */
+  .contact-container {
+    max-width: 600px;
+    margin: 3rem auto;
+    padding: 0 2rem 4rem;
+  }
+
+  .contact-container h2 {
+    font-size: 1.5rem;
+    color: var(--green);
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+  }
+
+  .contact-container .subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+  }
+
+  .contact-box {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .contact-box p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 10px;
+  }
+
+  .contact-box p:last-child { margin-bottom: 0; }
+
+  .contact-box a {
+    color: var(--green);
+    text-decoration: none;
+  }
+
+  .contact-box a:hover { text-decoration: underline; }
+
+  .email-highlight {
+    display: inline-block;
+    background: rgba(0,230,118,0.08);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3px 10px;
+    font-size: 13px;
+    color: var(--green);
+    letter-spacing: 0.5px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+  }
+
+  footer a { color: var(--green); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  /* ── PIXEL CURSOR ── */
+  .cursor { color: var(--green); animation: blink 1s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+</style>
 </head>
 <body>
 
-<div class="container">
-    <h1>docs.daboiyoshi.com</h1>
-    <p>Resource Directory & Repository for Snake Arcade</p>
-
-    <div class="file-list">
-        
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#" onclick="showPage('home')">
+    <img src="snake_arcade.png" alt="daboiYoshi Logo" onerror="this.style.display='none'">
+    <div class="nav-logo-text">
+      <span>docs.daboiyoshi.com</span>
+      <span>IT &amp; daboiyoshi.com file repository system</span>
     </div>
+  </a>
+  <ul class="nav-menu">
+    <li><a href="#" onclick="showPage('home')">HOME</a></li>
+    <li><a href="#" onclick="showPage('help')">HELP</a></li>
+    <li><a href="#" onclick="showPage('contact')">CONTACT</a></li>
+  </ul>
+</nav>
 
-    <div class="footer">
-        Main Site: <a href="https://www.daboiyoshi.com">www.daboiyoshi.com</a>
+<!-- HOME PAGE -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-badge">&#x25B6; Snake Arcade file repository</div>
+    <h1>Welcome to <span>docs.daboiyoshi</span>.com<span class="cursor">_</span></h1>
+    <p>This is the official file and documentation repository for <strong style="color:var(--text)">daboiyoshi.com</strong> — your go-to IT resource. Browse guides, download files, or get support from our team.</p>
+    <div class="hero-actions">
+      <a href="https://www.daboiyoshi.com" target="_blank" class="btn btn-primary">&#x2197; Visit Main Site</a>
+      <a href="https://docs.daboiyoshi.com/game/index.html" target="_blank" class="btn btn-outline">&#x1F3AE; Play Snake Game</a>
     </div>
+  </div>
+
 </div>
+
+<!-- HELP PAGE -->
+<div id="page-help" class="page">
+  <div class="help-container">
+    <h2>HELP CENTER<span class="cursor">_</span></h2>
+    <p class="subtitle">// How to get support and make the most of daboiyoshi.com</p>
+
+    <div class="help-block">
+      <h4>&#x1F310; Visit the Main Website</h4>
+      <p>The fastest way to get help is to visit <a href="https://www.daboiyoshi.com" target="_blank">www.daboiyoshi.com</a>. The main site has FAQs, service info, and live resources available to all users.</p>
+    </div>
+
+    <div class="help-block">
+      <h4>&#x2709;&#xFE0F; Contact Our Team</h4>
+      <p>Can't find what you need? Head to our <a href="#" onclick="showPage('contact')">Contact page</a> and reach out to the team directly. We typically respond within 24–48 hours on business days.</p>
+    </div>
+
+    <div class="help-block">
+      <h4>&#x25B6;&#xFE0F; YouTube Tutorials</h4>
+      <p>Check out our <a href="https://www.youtube.com/@daboiYoshi_tfsaviation" target="_blank">YouTube channel</a> for step-by-step video guides on IT topics, TFS aviation content, and more. New videos posted regularly.</p>
+    </div>
+
+    <div class="help-block">
+      <h4>&#x1F4CB; Tips for Getting the Best Help</h4>
+      <ul>
+        <li>Include your operating system and browser version when reporting an issue.</li>
+        <li>Describe what you were trying to do and what happened instead.</li>
+        <li>Attach screenshots if possible — they speed up resolution significantly.</li>
+        <li>Check if your issue is listed in the documentation first before contacting us.</li>
+        <li>Use a clear subject line if emailing: e.g., <em>"Cannot access file — docs.daboiyoshi.com"</em></li>
+      </ul>
+    </div>
+
+    <div class="help-block">
+      <h4>&#x1F527; Common IT Troubleshooting Tips</h4>
+      <ul>
+        <li>Always try clearing your browser cache before reporting a broken page.</li>
+        <li>If a file won't download, try a different browser or disable extensions.</li>
+        <li>Check your firewall or antivirus if a resource is being blocked unexpectedly.</li>
+        <li>Ensure your browser is up to date for the best compatibility with our tools.</li>
+        <li>Use an incognito/private window to rule out session or cookie issues.</li>
+      </ul>
+    </div>
+
+    <div class="help-block">
+      <h4>&#x1F40D; Need a Break?</h4>
+      <p>Sometimes the best fix is a short break. Play <a href="https://docs.daboiyoshi.com/game/index.html" target="_blank">Snake Arcade</a> while you wait for a file to download or an issue to be resolved. You deserve it.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT PAGE -->
+<div id="page-contact" class="page">
+  <div class="contact-container">
+    <h2>CONTACT<span class="cursor">_</span></h2>
+    <p class="subtitle">// Reach out to the daboiyoshi.com snake arcade development team</p>
+
+    <div class="contact-box">
+      <p>Contact our team for help at:</p>
+      <p><span class="email-highlight">&#x2709; info@daboiyoshi.com</span></p>
+      <p>Send us your question, issue, or feedback and we'll get back to you as soon as possible.</p>
+    </div>
+
+    <div class="contact-box">
+      <p>For more information about our team and services, visit:</p>
+      <p><a href="https://www.daboiyoshi.com/about" target="_blank">&#x2197; www.daboiyoshi.com/about</a></p>
+    </div>
+
+    <div class="contact-box">
+      <p>Visit YouTube channel:</p>
+      <p><a href="https://www.youtube.com/@daboiYoshi_tfsaviation" target="_blank">&#x25B6; youtube.com/@daboiYoshi_tfsaviation</a></p>
+    </div>
+
+    <div class="contact-box">
+      <p>Browse the main daboiyoshi.com website for live support options and additional resources:</p>
+      <p><a href="https://www.daboiyoshi.com" target="_blank">&#x2197; www.daboiyoshi.com</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2026 daboiyoshi.com &mdash; <a href="https://www.daboiyoshi.com">Main Site</a> &nbsp;|&nbsp; <a href="https://www.daboiyoshi.com/about">About</a> &nbsp;|&nbsp; <a href="https://www.youtube.com/@daboiYoshi_tfsaviation" target="_blank">YouTube</a> &nbsp;|&nbsp; <a href="https:/docs.daboiyoshi.com/tos.pdf">Terms of Service</a></p>
+</footer>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return false;
+  }
+</script>
 
 </body>
 </html>
