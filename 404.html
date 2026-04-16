@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - docs.daboiyoshi.com</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --navy: #0d1b2e;
+            --navy-light: #122340;
+            --green: #00e676;
+            --green-dim: #00b85c;
+            --green-dark: #007a3d;
+            --text: #e8f0fe;
+            --text-muted: #8fa8c8;
+            --border: rgba(0, 230, 118, 0.2);
+            --card-bg: rgba(18, 35, 64, 0.8);
+            --font: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--navy);
+            color: var(--text);
+            font-family: var(--font);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(13, 27, 46, 0.95);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 2rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .nav-logo img {
+            width: 42px;
+            height: 42px;
+            image-rendering: pixelated;
+            border-radius: 6px;
+        }
+
+        .nav-logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+
+        .nav-logo-text span:first-child {
+            font-size: 13px;
+            color: var(--green);
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .nav-logo-text span:last-child {
+            font-size: 10px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 0.5rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            padding: 6px 14px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            transition: all 0.2s;
+            letter-spacing: 1px;
+        }
+
+        .nav-menu a:hover {
+            color: var(--green);
+            border-color: var(--border);
+            background: rgba(0,230,118,0.05);
+        }
+
+        /* ── MAIN CONTENT ── */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .error-badge {
+            display: inline-block;
+            font-size: 11px;
+            color: var(--green);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 4px 14px;
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .error-image {
+            max-width: 260px;
+            height: auto;
+            margin-bottom: 2rem;
+            image-rendering: pixelated;
+            filter: drop-shadow(0 0 20px rgba(0, 230, 118, 0.15));
+        }
+
+        h1 {
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            color: var(--text);
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 span {
+            color: var(--green);
+        }
+
+        .error-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem 2rem;
+            max-width: 580px;
+            width: 100%;
+            margin-bottom: 1.25rem;
+        }
+
+        .error-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 0.6rem;
+        }
+
+        .error-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .error-card a {
+            color: var(--green);
+            text-decoration: none;
+        }
+
+        .error-card a:hover {
+            text-decoration: underline;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.75rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border-radius: 5px;
+            font-family: var(--font);
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--green);
+            color: #0d1b2e;
+            font-weight: bold;
+        }
+
+        .btn-primary:hover { background: #00ff88; transform: translateY(-1px); }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--green);
+            border: 1px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            background: rgba(0,230,118,0.07);
+            border-color: var(--green);
+        }
+
+        /* ── CURSOR ── */
+        .cursor { color: var(--green); animation: blink 1s step-end infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* ── FOOTER ── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 1.5rem 2rem;
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        footer a { color: var(--green); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <a class="nav-logo" href="https://docs.daboiyoshi.com/">
+        <img src="snake_arcade.png" alt="daboiYoshi Logo" onerror="this.style.display='none'">
+        <div class="nav-logo-text">
+            <span>docs.daboiyoshi.com</span>
+            <span>IT &amp; daboiyoshi.com file repository system</span>
+        </div>
+    </a>
+    <ul class="nav-menu">
+        <li><a href="https://docs.daboiyoshi.com/">HOME</a></li>
+        <li><a href="https://docs.daboiyoshi.com/#help">HELP</a></li>
+        <li><a href="https://docs.daboiyoshi.com/#contact">CONTACT</a></li>
+    </ul>
+</nav>
+
+<!-- MAIN -->
+<main>
+    <div class="error-badge">&#x25B6; 404 — page not found</div>
+
+    <img src="image.png" alt="Error Illustration" class="error-image">
+
+    <h1>Error <span>404</span> — Page Not Found<span class="cursor">_</span></h1>
+
+    <div class="error-card">
+        <p>The server found this page as an unavailable file/server request. Try changing the file extension, or the page name in the URL. This error will be sent to our admins immediately. For more, contact <a href="mailto:info@daboiyoshi.com">info@daboiyoshi.com</a>.</p>
+        <p>Please try again later. Bad Request.</p>
+    </div>
+
+    <div class="btn-row">
+        <a href="https://www.daboiyoshi.com/" class="btn btn-primary">&#x2197; Go to Home Page</a>
+        <a href="https://docs.daboiyoshi.com/documents" class="btn btn-outline">&#x1F4CB; Find Documents</a>
+    </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+    <p>&copy; 2026 daboiyoshi.com &mdash; <a href="https://www.daboiyoshi.com">Main Site</a> &nbsp;|&nbsp; <a href="https://www.daboiyoshi.com/about">About</a> &nbsp;|&nbsp; <a href="https://www.youtube.com/@daboiYoshi_tfsaviation" target="_blank">YouTube</a> &nbsp;|&nbsp; <a href="https://docs.daboiyoshi.com/tos.pdf">Terms of Service</a></p>
+</footer>
+
+</body>
+</html>
