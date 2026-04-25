@@ -1,6 +1,3 @@
-JavaScript console cheat
-
-Go to console, and paste this JavaScript macro in and hit enter
 
 (function() {
     console.log("Snake Arcade Autopilot Engaged!");
